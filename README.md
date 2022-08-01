@@ -35,11 +35,14 @@ services:
     environment:
       TWS_USERID: ${TWS_USERID}
       TWS_PASSWORD: ${TWS_PASSWORD}
+      FIX_USERID: ${FIX_USERID}
+      FIX_PASSWORD: ${FIX_PASSWORD}
       TRADING_MODE: ${TRADING_MODE:-live}
       VNC_SERVER_PASSWORD: ${VNC_SERVER_PASSWORD:-}
     ports:
       - "127.0.0.1:4001:4001"
       - "127.0.0.1:4002:4002"
+      - "127.0.0.1:4020:4020"
       - "127.0.0.1:5900:5900"
 ```
 
@@ -47,13 +50,16 @@ Create an .env on root directory or set the following environment variables:
 
 | Variable              | Description                                                         | Default                    |
 | --------------------- | ------------------------------------------------------------------- | -------------------------- |
-| `TWS_USERID`          | The TWS **username**.                                               |                            |
+| `TWS_USERID`          | The TWS **username**.                                               | **TWS disabled**           |
 | `TWS_PASSWORD`        | The TWS **password**.                                               |                            |
+| `FIX_USERID`          | The FIX **username**.                                               | **FIX disabled**           |
+| `FIX_PASSWORD`        | The FIX **password**.                                               |                            |
 | `TRADING_MODE`        | **live** or **paper**                                               | **paper**                  |
 | `READ_ONLY_API`       | **yes** or **no** ([see](resources/config.ini#L316))                | **not defined**            |
 | `VNC_SERVER_PASSWORD` | VNC server password. If not defined, no VNC server will be started. | **not defined** (VNC disabled)|
 
-Example .env file:
+
+Example .env file for use with the TWS api:
 
 ```text
 TWS_USERID=myTwsAccountName
@@ -62,6 +68,28 @@ TRADING_MODE=paper
 READ_ONLY_API=no
 VNC_SERVER_PASSWORD=myVncPassword
 ```
+
+or for use with the FIX api:
+
+```text
+FIX_USERID=myFixAccountName
+FIX_PASSWORD=myFixPassword
+TRADING_MODE=paper
+READ_ONLY_API=no
+VNC_SERVER_PASSWORD=myVncPassword
+```
+
+or for use with both:
+```text
+TWS_USERID=myTwsAccountName
+TWS_PASSWORD=myTwsPassword
+FIX_USERID=myFixAccountName
+FIX_PASSWORD=myFixPassword
+TRADING_MODE=paper
+READ_ONLY_API=no
+VNC_SERVER_PASSWORD=myVncPassword
+```
+
 
 Run:
 
@@ -74,6 +102,7 @@ container and docker host:
 | ---- | ------------------------------------------------------------ |
 | 4001 | TWS API port for live accounts.                              |
 | 4002 | TWS API port for paper accounts.                             |
+| 4020 | FIX API port
 | 5900 | When `VNC_SERVER_PASSWORD` was defined, the VNC server port. |
 
 _Note that with the above `docker-compose.yml`, ports are only exposed to the 

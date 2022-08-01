@@ -17,5 +17,4 @@ envsubst < "${IBC_INI}.tmpl" > "${IBC_INI}"
 /root/ibc/scripts/ibcstart.sh "${TWS_MAJOR_VRSN}" -g \
      "--tws-path=${TWS_PATH}" \
      "--ibc-path=${IBC_PATH}" "--ibc-ini=${IBC_INI}" \
-     "--user=${TWS_USERID}" "--pw=${TWS_PASSWORD}" "--mode=${TRADING_MODE}" \
-     "--on2fatimeout=${TWOFA_TIMEOUT_ACTION}"
+     "--mode=${TRADING_MODE}" "--on2fatimeout=${TWOFA_TIMEOUT_ACTION}"
