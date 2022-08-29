@@ -414,7 +414,14 @@ SendMarketDataInLotsForUSstocks=
 # only work properly with TWS versions earlier than 974, you
 # should explicitly set this to 'yes' for version 974 and later.
 
-IbAutoClosedown=yes
+# ================================================================
+#  Date Time    Developer   Comments
+# ----------------------------------------------------------------
+#  08/28/2022   Kelvin Lu   Use environment variable to manage
+#                           IB auto close down variable value
+# ================================================================
+
+IbAutoClosedown=${IB_AUTO_CLOSE_DOWN}
 
 
 
@@ -449,7 +456,14 @@ IbAutoClosedown=yes
 # use the following:
 # #ClosedownAt=\u661F\u671F\u516D 12:00
 
-ClosedownAt=
+# ================================================================
+#  Date Time    Developer   Comments
+# ----------------------------------------------------------------
+#  08/28/2022   Kelvin Lu   Use environment variable to manage
+#                           close down at variable value
+# ================================================================
+
+ClosedownAt=${CLOSE_DOWN_AT}
 
 
 
