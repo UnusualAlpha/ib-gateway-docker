@@ -11,11 +11,14 @@ services:
       TWS_PASSWORD: ${TWS_PASSWORD}
       TRADING_MODE: ${TRADING_MODE:-paper}
       READ_ONLY_API: ${READ_ONLY_API:-}
+      IB_AUTO_CLOSE_DOWN: ${IB_AUTO_CLOSE_DOWN}
+      CLOSE_DOWN_AT: ${CLOSE_DOWN_AT}
       VNC_SERVER_PASSWORD: ${VNC_SERVER_PASSWORD:-}
+      TZ: America/Chicago
+    secrets:
+      - iTraderBot_UID
+      - iTraderBot_PWD
     ports:
       - "4001:4001"
       - "4002:4002"
       - "5900:5900"
-    #  - "127.0.0.1:4001:4001"
-    #  - "127.0.0.1:4002:4002"
-    #  - "127.0.0.1:5900:5900"
