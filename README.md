@@ -55,7 +55,7 @@ Create an .env on root directory or set the following environment variables:
 | `TWS_USERID`          | The TWS **username**.                                               |                            |
 | `TWS_PASSWORD`        | The TWS **password**.                                               |                            |
 | `TRADING_MODE`        | **live** or **paper**                                               | **paper**                  |
-| `READ_ONLY_API`       | **yes** or **no** ([see](resources/config.ini#L316))                | **not defined**            |
+| `READ_ONLY_API`       | **yes** or **no** ([see](latest/config/ibc/config.ini.tmpl#L316))                | **not defined**            |
 | `VNC_SERVER_PASSWORD` | VNC server password. If not defined, no VNC server will be started. | **not defined** (VNC disabled)|
 
 Example .env file:
