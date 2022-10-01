@@ -75,22 +75,7 @@ jobs:
           git pull
           git checkout -b "$t_branch" origin/master
           git add '${{ matrix.channel }}'
-          git commit -m 'update `${{ matrix.channel }}` to ${{ steps.version.outputs.build_version }}'
+          git commit -m 'Update `${{ matrix.channel }}` to `${{ steps.version.outputs.build_version }}`'
           git push --set-upstream origin "$t_branch"
 
           gh pr create --base master --fill
-
-      # - name: Create Issue
-      #   if: ${{ steps.check-update.outputs.has_update == 'true' }}
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     body=$(cat << EOF
-      #     **Build Version:** ${{ steps.version.outputs.build_version }}
-      #     **Channel:** ${{ matrix.channel }}
-      #     [ibgateway-${{ matrix.channel }}@${{ steps.version.outputs.build_version }}](https://github.com/UnusualAlpha/ib-gateway-docker/releases/tag/ibgateway-${{ matrix.channel }}@${{ steps.version.outputs.build_version }})
-      #     EOF)
-      #     gh issue create \
-      #       --repo "$GITHUB_REPOSITORY" \
-      #       --title "IB Gateway ${{ matrix.channel }} ${{ steps.version.outputs.build_version }} was released" \
-      #       --body "$body"
