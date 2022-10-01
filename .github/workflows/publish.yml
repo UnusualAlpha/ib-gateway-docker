@@ -1,22 +1,20 @@
 name: "Publish Docker"
 
 on:
-  release:
-    types: [published]
   push:
     tags:
-      - "ibgateway-*"
+      - "v*"
 
 jobs:
   publish-docker:
     name: Publish Docker Image
-    environment: prod
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
         uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
+          lfs: true
       - name: Extract release channel
         id: channel
         run: |
@@ -30,9 +28,9 @@ jobs:
           flavor: |
             latest=false
           tags: |
-            type=match,pattern=@(\d+.\d+),group=1
-            type=match,pattern=@(\d+.\d+.\w+),group=1
-            type=match,pattern=ibgateway-(stable|latest),group=1
+            type=match,pattern=v(\d+.\d+),group=1
+            type=match,pattern=v(\d+.\d+.\w+),group=1
+            type=match,pattern=v(\d+.\d+.\w+)+\-(stable|latest),group=2
 
       - name: Log in to the Container registry
         uses: docker/login-action@17f28ab24d0d2832d5ff23a1409bbfc373ebcb96
