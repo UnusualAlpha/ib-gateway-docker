@@ -1,1 +1,4 @@
 /.env
+.gitignore
+IBCLinux-3.15.2.zip
+ibgateway-3.4-standalone-linux-x64.sh
