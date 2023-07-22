@@ -1,10 +1,12 @@
 # Interactive Brokers Gateway Docker
 
-<img src="https://github.com/UnusualAlpha/ib-gateway-docker/blob/master/logo.png" height="300" />
+<img src="https://github.com/brschick/ib-gateway-docker/blob/master/logo.png" height="300" />
 
 ## What is it?
 
 A docker image to run the Interactive Brokers Gateway Application without any human interaction on a docker container.
+
+Based on https://github.com/UnusualAlpha/ib-gateway-docker
 
 It includes:
 
@@ -25,7 +27,7 @@ a VNC server that allows to interact with the IB Gateway user interface (optiona
 | `stable` | `10.19.1j`         | `3.15.2`    | `stable` `10.19` `10.19.1j` |
 
 
-See all available tags [here](https://github.com/UnusualAlpha/ib-gateway-docker/pkgs/container/ib-gateway/).
+See all available tags [here](https://github.com/brschick/ib-gateway-docker/pkgs/container/ib-gateway/).
 
 ## How to use?
 
@@ -36,7 +38,7 @@ version: "3.4"
 
 services:
   ib-gateway:
-    image: ghcr.io/unusualalpha/ib-gateway:latest
+    image: ghcr.io/brschick/ib-gateway:latest
     restart: always
     environment:
       TWS_USERID: ${TWS_USERID}
@@ -92,16 +94,16 @@ the whole network change the port mappings on accordingly (remove the
 1. Clone this repo
 
    ```bash
-      git clone https://github.com/UnusualAlpha/ib-gateway-docker
+      git clone https://github.com/brschick/ib-gateway-docker
    ```
 
 2. Change docker file to use your local IB Gateway installer file, instead of loading it from this project releases:
 Open `Dockerfile` on editor and replace this lines:
 
    ```docker
-   RUN curl -sSL https://github.com/UnusualAlpha/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh \
+   RUN curl -sSL https://github.com/brschick/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh \
        --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh
-   RUN curl -sSL https://github.com/UnusualAlpha/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh.sha256 \
+   RUN curl -sSL https://github.com/brschick/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh.sha256 \
        --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh.sha256
    ```
 
@@ -124,19 +126,19 @@ See [Supported tags](#supported-tags)
 
 ### IB Gateway installation files
 
-Note that the [Dockerfile](https://github.com/UnusualAlpha/ib-gateway-docker/blob/master/Dockerfile)
+Note that the [Dockerfile](https://github.com/brschick/ib-gateway-docker/blob/master/Dockerfile)
 **does not download IB Gateway installer files from IB homepage but from the
-[github-pages](https://github.com/UnusualAlpha/ib-gateway-docker/tree/gh-pages/ibgateway-releases) of this project**.
+[github-pages](https://github.com/brschick/ib-gateway-docker/tree/gh-pages/ibgateway-releases) of this project**.
 
 This is because it shall be possible to (re-)build the image, targeting a specific Gateway version,
 but IB does only provide download links for the `latest` or `stable` version (there is no 'old version' download archive).
 
-The installer files stored on [github-pages](https://github.com/UnusualAlpha/ib-gateway-docker/tree/gh-pages/ibgateway-releases) have been downloaded from
+The installer files stored on [github-pages](https://github.com/brschick/ib-gateway-docker/tree/gh-pages/ibgateway-releases) have been downloaded from
 IB homepage and renamed to reflect the version.
 
 If you want to download Gateway installer from IB homepage directly, or use your local installation file, change this line
-on [Dockerfile](https://github.com/UnusualAlpha/ib-gateway-docker/blob/master/Dockerfile)
-`RUN curl -sSL https://github.com/UnusualAlpha/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh
+on [Dockerfile](https://github.com/brschick/ib-gateway-docker/blob/master/Dockerfile)
+`RUN curl -sSL https://github.com/brschick/ib-gateway-docker/raw/gh-pages/ibgateway-releases/ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh
 --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh` to download (or copy) the file from the source you prefer.
 
 **Example:** change to `RUN curl -sSL https://download2.interactivebrokers.com/installers/ibgateway/stable-standalone/ibgateway-stable-standalone-linux-x64.sh --output ibgateway-${IB_GATEWAY_VERSION}-standalone-linux-x64.sh` for using current stable version from IB homepage.
@@ -150,8 +152,8 @@ Apps and config file locations:
 
 | App        |  Folder   | Config file               | Default                                                                                           |
 | ---------- | --------- | ------------------------- | ------------------------------------------------------------------------------------------------- |
-| IB Gateway | /root/Jts | /root/Jts/jts.ini         | [jts.ini](https://github.com/UnusualAlpha/ib-gateway-docker/blob/master/config/ibgateway/jts.ini) |
-| IBC        | /root/ibc | /root/ibc/config.ini      | [config.ini](https://github.com/UnusualAlpha/ib-gateway-docker/blob/master/config/ibc/config.ini.tmpl) |
+| IB Gateway | /root/Jts | /root/Jts/jts.ini         | [jts.ini](https://github.com/brschick/ib-gateway-docker/blob/master/config/ibgateway/jts.ini) |
+| IBC        | /root/ibc | /root/ibc/config.ini      | [config.ini](https://github.com/brschick/ib-gateway-docker/blob/master/config/ibc/config.ini.tmpl) |
 
 To start the IB Gateway run `/root/scripts/run.sh` from your Dockerfile or
 run-script.
