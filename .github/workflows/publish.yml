@@ -5,44 +5,48 @@ on:
     tags:
       - "v*"
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
-  publish-docker:
-    name: Publish Docker Image
+  build-and-push-image:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-      - name: Checkout source code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.ref }}
           lfs: true
+
       - name: Extract release channel
         id: channel
         run: |
           channel=$(cut -d - -f 2 <<< "${{ github.ref_name }}")
           echo "channel=$channel" >> $GITHUB_OUTPUT
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ghcr.io/unusualalpha/ib-gateway
-          flavor: |
-            latest=false
-          tags: |
-            type=match,pattern=v(\d+.\d+),group=1
-            type=match,pattern=v(\d+.\d+.\w+),group=1
-            type=match,pattern=v(\d+.\d+.\w+)+\-(stable|latest),group=2
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v3
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          context: ${{ steps.channel.outputs.channel }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
