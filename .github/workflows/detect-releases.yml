@@ -71,7 +71,7 @@ jobs:
         run: |
           t_branch='update-${{ matrix.channel }}-to-${{ steps.version.outputs.build_version }}'
           git config user.name github-actions
-          git config user.email github-actions@github.com
+          git config user.email <>
           git pull
           git checkout -b "$t_branch" origin/master
           git add '${{ matrix.channel }}'
