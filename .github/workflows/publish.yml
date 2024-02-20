@@ -2,8 +2,7 @@ name: "Publish Docker"
 
 on:
   push:
-    tags:
-      - "v*"
+    branch: main
 
 jobs:
   publish-docker:
@@ -24,7 +23,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/unusualalpha/ib-gateway
+          images: ghcr.io/natehalsey/ib-gateway
           flavor: |
             latest=false
           tags: |
